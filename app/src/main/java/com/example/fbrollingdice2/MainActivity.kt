@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
         binding.txtDice2.text=getString(R.string.novaluestring)
         binding.txtTotal.text=getString(R.string.novaluestring)
         binding.btnRoll.setOnClickListener{
-            val dice1= Random.nextInt(1,6)
-            val dice2= Random.nextInt(1,6)
+            val dice1= Random.nextInt(1,7)
+            val dice2= Random.nextInt(1,7)
             val sum =dice1+dice2
             firebaseAnalytics.logEvent("RollDice") {
                 param("Dice1", dice1.toLong())
@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             //Actualitzem estadístiques.
-            MainApp.estadistica.daus[dice1]++
-            MainApp.estadistica.daus[dice2]++
+            MainApp.estadistica.daus[dice1-1]++
+            MainApp.estadistica.daus[dice2-1]++
             MainApp.estadistica.tirades++
             if (dice1==dice2) MainApp.estadistica.numdobles++
 
