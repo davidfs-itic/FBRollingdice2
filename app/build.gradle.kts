@@ -46,6 +46,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.androidx.datastore.core.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -56,4 +58,5 @@ dependencies {
     // Add the dependency for the Analytics library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation(libs.firebase.analytics)
+    implementation(libs.firebase.firestore)
 }
