@@ -47,7 +47,7 @@ class MainApp:Application() {
 
                 } else {
                     //El nostre dispositiu no estava registrat, i el guardem amb valors per defecte.
-                    db.collection("Device").document(idDispositiu).set(estadistica)
+                    db.collection("Devices").document(idDispositiu).set(estadistica)
                 }
             }
             .addOnFailureListener { exception ->
