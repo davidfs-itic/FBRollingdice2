@@ -11,7 +11,7 @@ import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 
 
-data class statistics(val tirades:Int=0,val numdobles:Int=0,val daus:ArrayList<Int> = arrayListOf<Int>(0,0,0,0,0,0))
+data class statistics(var tirades:Int=0, var numdobles:Int=0, val daus:ArrayList<Int> = arrayListOf<Int>(0,0,0,0,0,0))
 
 class MainApp:Application() {
 
