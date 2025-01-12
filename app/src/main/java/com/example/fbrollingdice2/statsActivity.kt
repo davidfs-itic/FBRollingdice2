@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
@@ -13,6 +15,9 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.DefaultValueFormatter
 
 class statsActivity : AppCompatActivity() {
@@ -32,6 +37,42 @@ class statsActivity : AppCompatActivity() {
 
         binding.txtTotalTirades.text=MainApp.estadistica.tirades.toString()
 
+        UpdateBarGraph()
+        UpdatePieGraph()
+        binding.btnResetStats.setOnClickListener(this::resetStats)
+
+    }
+
+
+
+    private fun UpdatePieGraph() {
+        val entries = listOf(
+            PieEntry(MainApp.estadistica.numdobles.toFloat() , "Dobles"), // Valor 70%
+            PieEntry((MainApp.estadistica.tirades-MainApp.estadistica.numdobles).toFloat(), "No Dobles")  // Valor 30%
+        )
+        val pieDataSet = PieDataSet(entries, "Distribució")
+        pieDataSet.colors = listOf(Color.rgb(135, 206, 250), Color.rgb(255, 182, 193)) // Blau clar i rosa clar
+        pieDataSet.valueTextColor = Color.BLACK // Color del text
+        pieDataSet.valueTextSize = 16f // Mida del text
+
+        // Afegeix el DataSet al PieData
+        binding.piechartDobles.apply {
+            data= PieData(pieDataSet)
+            description.isEnabled = false // Desactiva la descripció
+            isDrawHoleEnabled = true // Mostra el forat al centre
+            holeRadius = 40f // Mida del forat
+            setHoleColor(Color.WHITE) // Color del forat
+            animateY(1000) // Animació en Y
+            setEntryLabelColor(Color.BLACK) // Color de les etiquetes
+            setEntryLabelTextSize(14f) // Mida del text de les etiquetes
+
+            // Actualitza el gràfic
+            invalidate()
+        }
+    }
+
+
+    private fun UpdateBarGraph(){
         val entries = ArrayList<BarEntry>()
         for (i in MainApp.estadistica.daus.indices) {
             entries.add(BarEntry((i+1).toFloat(), MainApp.estadistica.daus[i].toFloat()))
@@ -68,8 +109,6 @@ class statsActivity : AppCompatActivity() {
             animateY(1000) // Animació en Y
             invalidate()
         }
-
-
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_estadistica, menu);
@@ -80,18 +119,30 @@ class statsActivity : AppCompatActivity() {
         if (item.itemId==R.id.menuGuardar)
         {
             //Guardar
-            //
-            this.statsSaved=true
+
+            try {
+                (application as MainApp).saveStats()
+                this.statsSaved=true
+                Toast.makeText(this, "Estadística guardada correctament", Toast.LENGTH_SHORT).show()
+            }catch (e: Exception) {
+                Toast.makeText(this, "Error:"+e.message, Toast.LENGTH_SHORT).show()
+            }
+
             //Mostrar info usuari
             return true
         }else return super.onOptionsItemSelected(item)
     }
 
+    private fun resetStats(view: View?) {
+        (application as MainApp).resetStats()
+        this.statsSaved=false
+
+        UpdateBarGraph()
+        UpdatePieGraph()
+    }
+
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-
         menu?.findItem(R.id.menuGuardar)?.setEnabled(!this.statsSaved)
-
-
         return super.onPrepareOptionsMenu(menu)
     }
 }

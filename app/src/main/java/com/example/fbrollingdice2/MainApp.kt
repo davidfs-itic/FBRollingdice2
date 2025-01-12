@@ -11,15 +11,19 @@ import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 
 
-data class statistics(var tirades:Int=0, var numdobles:Int=0, val daus:ArrayList<Int> = arrayListOf<Int>(0,0,0,0,0,0))
+data class statistics(
+    var tirades: Int = 0,
+    var numdobles: Int = 0,
+    var daus: ArrayList<Int> = arrayListOf<Int>(0, 0, 0, 0, 0, 0)
+)
 
-class MainApp:Application() {
+class MainApp : Application() {
 
-    companion object{
-        var idDispositiu= ""
-        const val nomAplicacio="Rolling Dice"
-        const val idAplicacio="fbrollingdice2"
-        var estadistica=statistics()
+    companion object {
+        var idDispositiu = ""
+        const val nomAplicacio = "Rolling Dice"
+        const val idAplicacio = "fbrollingdice2"
+        var estadistica = statistics()
     }
 
     //La variable s'inicialitzarà la primera vegada que s'utilitzi.
@@ -30,20 +34,23 @@ class MainApp:Application() {
 
         //Es desaconsella utilitzar ids lligats al dispositiu,
         //https://developer.android.com/identity/user-data-ids
-        idDispositiu = Settings.Secure.getString(getApplicationContext().contentResolver, Settings.Secure.ANDROID_ID)
+        idDispositiu = Settings.Secure.getString(
+            getApplicationContext().contentResolver,
+            Settings.Secure.ANDROID_ID
+        )
 
         //Obtenim les dades de la base de dades.
         //Guardarem les tirades en la col·lecció Devices.
         //Per cada Device(identificat amb un id), es guardaran les estadístiques.
-        val doc =db.collection("Devices").document(idDispositiu)
+        val doc = db.collection("Devices").document(idDispositiu)
 
         //Obtenim el document corresponent al nostre dispositiu
         doc.get()
             .addOnSuccessListener { documentSnapshot ->
                 if (documentSnapshot.exists()) {
                     //El nostre dispositiu ja estava registrat
-                    val estadisticabbdd=documentSnapshot.toObject<statistics>()
-                    MainApp.estadistica=estadisticabbdd!!
+                    val estadisticabbdd = documentSnapshot.toObject<statistics>()
+                    MainApp.estadistica = estadisticabbdd!!
 
                 } else {
                     //El nostre dispositiu no estava registrat, i el guardem amb valors per defecte.
@@ -52,7 +59,17 @@ class MainApp:Application() {
             }
             .addOnFailureListener { exception ->
                 // Manejar el error en caso de fallo al obtener el documento
-                Log.i("App_onCreate","Error al comprobar la existencia del documento: $exception")
+                Log.i("App_onCreate", "Error al comprobar la existencia del documento: $exception")
             }
+    }
+
+    public fun saveStats() {
+        db.collection("Devices").document(idDispositiu).set(estadistica)
+            .addOnFailureListener {
+                throw it
+            }
+    }
+    public fun resetStats(){
+        estadistica= statistics()
     }
 }
