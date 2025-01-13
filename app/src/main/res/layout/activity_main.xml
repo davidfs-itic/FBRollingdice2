@@ -1,120 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/maintoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="8dp"
         android:minHeight="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="8dp"/>
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <LinearLayout
         android:id="@+id/dicelayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/maintoolbar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:orientation="horizontal"
         android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.3"
-        android:orientation="horizontal">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/maintoolbar">
+
         <androidx.cardview.widget.CardView
             android:id="@+id/dice1"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
             android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:elevation="8dp">
+
             <TextView
                 android:id="@+id/txt_dice1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="24dp"
-                tools:text="4"
-                app:autoSizeTextType="uniform"
+                android:textAlignment="center"
                 android:textSize="100sp"
-                android:textAlignment="center"/>
+                app:autoSizeTextType="uniform"
+                tools:text="4" />
 
         </androidx.cardview.widget.CardView>
+
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.1"/>
+            android:layout_weight="0.1" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/dice2"
             android:layout_width="0dp"
+            app:cardCornerRadius="8dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
             android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:elevation="8dp">
+
             <TextView
                 android:id="@+id/txt_dice2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="24dp"
-                tools:text="4"
-                app:autoSizeTextType="uniform"
+                android:textAlignment="center"
                 android:textSize="100sp"
-                android:textAlignment="center"/>
+                app:autoSizeTextType="uniform"
+                tools:text="4" />
         </androidx.cardview.widget.CardView>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/dicelayout"
+        android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@id/rolllayout"
-        >
-        <TextView
-            android:layout_gravity="center"
-            android:id="@+id/txttotaldesc"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            tools:text="Total:"
-            app:autoSizeTextType="uniform"
-            android:gravity="center"
-            />
+        app:layout_constraintTop_toBottomOf="@id/dicelayout">
 
-        <TextView
-            android:layout_gravity="center"
-            android:id="@+id/txt_total"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="24dp"
-            tools:text="4"
-            app:autoSizeTextType="uniform"
-            android:gravity="center"
-            />
+            android:layout_height="match_parent"
+            app:cardCornerRadius="8dp"
+            android:layout_margin="8dp"
+            android:elevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/txttotaldesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:autoSizeTextType="uniform"
+                    tools:text="Total:" />
+
+                <TextView
+                    android:id="@+id/txt_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:autoSizeTextType="uniform"
+                    tools:text="4" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rolllayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.3"
-        android:orientation="vertical">
+        app:layout_constraintStart_toStartOf="parent">
+
         <Button
             android:id="@+id/btnRoll"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.6"
-            app:layout_constraintWidth_percent="0.7"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:autoSizeTextType="uniform"
+            android:text="Roll"
             android:textSize="32sp"
-            android:text="Roll" />
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.7" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
