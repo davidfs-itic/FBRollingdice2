@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="com.example.firebase_rollingdice.MainActivity"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/maintoolbar"
@@ -104,6 +105,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     app:autoSizeTextType="uniform"
+                    android:text="Total:"
                     tools:text="Total:" />
 
                 <TextView
