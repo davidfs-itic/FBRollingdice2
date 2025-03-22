@@ -60,4 +60,5 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.firestore)
     implementation(libs.mpandroidchart)
+    androidTestImplementation(libs.junit.jupiter)
 }

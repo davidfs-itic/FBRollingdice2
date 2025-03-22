@@ -65,7 +65,11 @@ class MainApp : Application() {
 
     public fun saveStats() {
         db.collection("Devices").document(idDispositiu).set(estadistica)
+            .addOnSuccessListener {
+                Log.i("saveStats","Dades guardades correctament")
+            }
             .addOnFailureListener {
+                Log.i("saveStats",it.message.toString())
                 throw it
             }
     }
